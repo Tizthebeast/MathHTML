@@ -1,26 +1,36 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link href="..\assets\Css\Pages.css" rel="stylesheet">
-        <script src="Server.js"></script>
-    </head>
+<head>
+    <link href="../assets/Css/Pages.css" rel="stylesheet">
+</head>
+<body>
+    <div class="topbar">
+        <a href="Dashboard.html" class="Dashboard">Dashboard</a>
+    </div>
 
-    <body>
-
-        <div class="topbar">
-
-            <a href="Dashboard.html" class="Dashboard">Dashboard</a>
-
+    <div class="mainbar">
+        <div class="used">
+            <label>Username: </label><input id="Username">
+            <label>Password: </label><input id="Password">
+            <button onclick="SignUP()">Sign Up</button>
         </div>
+    </div>
 
-        <div class="mainbar">
-            <div class="used">
-                <p class="jumper"></p>
-                    <label>Username: </label><input id="Username">
-                    <label>Password: </label><input id="Password">
-                    <button onclick="SignUP()">Sign Up</button>
-                    <button onclick="">Sign In</button>
-            </div>
-        </div>
-    </body>
+    <script>
+    function SignUP() {
+    fetch("http://localhost:3000/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            Username: document.getElementById("Username").value,
+            Password: document.getElementById("Password").value
+        })
+    })
+    .then(res => res.text())
+    .then(data => alert(data))
+    .catch(err => console.error(err));
+
+    }
+    </script>
+</body>
 </html>
